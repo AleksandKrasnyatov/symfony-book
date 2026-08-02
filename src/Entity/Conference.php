@@ -16,6 +16,9 @@ class Conference
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 4)]
@@ -33,6 +36,11 @@ class Conference
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->city . ' ' . $this->year;
     }
 
     public function getId(): ?int
@@ -102,6 +110,18 @@ class Conference
                 $comment->setConference(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
