@@ -38,14 +38,15 @@ applications:
         mounts:
             "/var/cache": { source: instance, source_path: var/cache }
             "/var/share": { source: storage, source_path: var/share }
-            
+            "/public/uploads": { source: storage, source_path: uploads }
+
 
         hooks:
             build: |
                 set -x -e
 
                 curl -fs https://get.symfony.com/cloud/configurator | bash
-                
+
                 NODE_VERSION=22 symfony-build
 
             deploy: |
@@ -64,4 +65,4 @@ applications:
                 commands:
                     start: croncape php-session-clean
 
-        
+
